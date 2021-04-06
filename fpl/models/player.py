@@ -1,3 +1,5 @@
+from async_property import async_cached_property
+
 from ..constants import API_URLS
 from ..utils import fetch, position_converter, team_converter
 
@@ -51,6 +53,12 @@ class Player():
             return 0.0
 
         return (getattr(self, "total_points", 0.0) / games_played - 2) / (cost / 10)
+
+    @async_cached_property
+    async def summary(self):
+        url = API_URLS["player"].format(self.id)
+        player_summary = await fetch(self._session, url)
+        return PlayerSummary(player_summary)
 
     def __str__(self):
         return (f"{self.web_name} - "

@@ -103,7 +103,7 @@ def _set_captain(lineup, captain, captain_type, player_ids):
             player[captain_type] = True
 
 
-class User():
+class User:
     """A class representing a user of the Fantasy Premier League.
 
     >>> from fpl import FPL
